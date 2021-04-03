@@ -1,0 +1,30 @@
+{
+    "name": "fast-flip",
+    "title": "Fast Flip!",
+    "description": "Adds a hotkey that will mirror all currently selected tokens.",
+    "author": "MrByte",
+    "version": "1.0.0",
+    "minimumCoreVersion": "0.7.9",
+    "compatibleCoreVersion": "0.7.9",
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
+        }
+    ],
+    "esmodules": [
+        "main.js"
+    ],
+    "dependencies": [
+        {
+            "name": "lib-df-hotkeys"
+        }
+    ],
+    "url": "https://github.com/Mr-Byte/fast-flip",
+    "download": "https://github.com/Mr-Byte/fast-flip/archive/v1.0.0.zip",
+    "manifest": "https://raw.githubusercontent.com/Mr-Byte/fast-flip/main/module.json",
+    "bugs": "https://github.com/Mr-Byte/fast-flip/issues",
+    "allowBugReporter": true,
+    "license": "MIT"
+}
