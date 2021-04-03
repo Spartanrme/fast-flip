@@ -21,7 +21,7 @@ Hooks.once("ready", () => {
 });
 
 async function handleTokenFlip() {
-    const controlledTokens = game.canvas.tokens.controlled;
+    const controlledTokens = canvas.tokens.controlled || game.canvas.tokens.controlled;
 
     for (const token of controlledTokens) {
         await token.update({ "mirrorX": !token.data.mirrorX });

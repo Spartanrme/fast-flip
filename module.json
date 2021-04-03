@@ -3,7 +3,7 @@
     "title": "Fast Flip!",
     "description": "Adds a hotkey that will mirror all currently selected tokens.",
     "author": "MrByte",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "minimumCoreVersion": "0.7.9",
     "compatibleCoreVersion": "0.7.9",
     "languages": [
@@ -22,7 +22,7 @@
         }
     ],
     "url": "https://github.com/Mr-Byte/fast-flip",
-    "download": "https://github.com/Mr-Byte/fast-flip/archive/v1.0.0.zip",
+    "download": "https://github.com/Mr-Byte/fast-flip/archive/v1.0.1.zip",
     "manifest": "https://raw.githubusercontent.com/Mr-Byte/fast-flip/main/module.json",
     "bugs": "https://github.com/Mr-Byte/fast-flip/issues",
     "allowBugReporter": true,
