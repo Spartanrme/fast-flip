@@ -1,9 +1,9 @@
 {
     "name": "fast-flip",
     "title": "Fast Flip!",
-    "description": "Adds a hotkey that will mirror all currently selected tokens.",
+    "description": "Adds a hotkey that will mirror all currently selected tokens or tiles.",
     "author": "MrByte",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "minimumCoreVersion": "0.7.9",
     "compatibleCoreVersion": "0.7.9",
     "languages": [
@@ -14,7 +14,7 @@
         }
     ],
     "esmodules": [
-        "main.js"
+        "dist/main.js"
     ],
     "dependencies": [
         {
@@ -22,7 +22,7 @@
         }
     ],
     "url": "https://github.com/Mr-Byte/fast-flip",
-    "download": "https://github.com/Mr-Byte/fast-flip/archive/v1.0.1.zip",
+    "download": "https://github.com/Mr-Byte/fast-flip/archive/v1.1.0.zip",
     "manifest": "https://raw.githubusercontent.com/Mr-Byte/fast-flip/main/module.json",
     "bugs": "https://github.com/Mr-Byte/fast-flip/issues",
     "allowBugReporter": true,

@@ -1,3 +1,4 @@
 {
-    "fast-flip.flip-token": "Flip Selected Tokens"
+    "fast-flip.mirror-horizontal-hotkey": "Horizontally Mirror Selected Tokens or Tiles",
+    "fast-flip.mirror-vertical-hotkey": "Vertically Mirror Selected Tokens or Tiles"
 }
