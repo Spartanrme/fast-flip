@@ -1,3 +1,9 @@
+# v1.1.0
+Tiles!
+
+* Added the ability to vertically flip tokens (default shortcur `Shift+F`)
+* Add the ability to horizontally and vertically flip selected tiles
+
 # v1.0.1
 Initial public release of Fast Flip!
 
