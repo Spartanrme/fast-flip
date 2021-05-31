@@ -13,8 +13,8 @@
             "path": "lang/en.json"
         }
     ],
-    "esmodules": [
-        "dist/main.js"
+    "scripts": [
+        "mod.js"
     ],
     "dependencies": [
         {

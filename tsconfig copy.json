@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ES2020",
+    "module": "esnext",
+    "lib": [
+      "DOM",
+      "ES6",
+      "ES2017",
+      "ES2018",
+      "ES2020"
+    ],
+    "moduleResolution": "node",
+    "allowJs": true,
+    "outDir": "dist/",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "src/types"
+    ],
+    "types": [
+      "@league-of-foundry-developers/foundry-vtt-types"
+    ],
+    "newLine": "lf",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+  },
+  "exclude": [
+    "dist/**/*.js",
+    "node_modules/**"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ]
+}

@@ -1,19 +1,21 @@
 {
     "compilerOptions": {
         "strict": true,
-        "target": "ES2017",
-        "module": "ES6",
+        "target": "ES2020",
+        "module": "esnext",
         "lib": [
             "DOM",
             "ES6",
             "ES2017",
-            "ES2018"
+            "ES2018",
+            "ES2020"
         ],
         "moduleResolution": "node",
         "allowJs": true,
         "outDir": "dist/",
         "noImplicitAny": true,
         "noImplicitReturns": true,
+        "noImplicitThis": true,
         "typeRoots": [
             "node_modules/@types",
             "src/types"
@@ -23,11 +25,16 @@
         ],
         "newLine": "lf",
         "skipLibCheck": true,
+        "esModuleInterop": true,
+        "jsx": "react-jsx",
+        "baseUrl": "./src",
     },
     "exclude": [
-        "**/dist"
+        "dist/**/*.js",
+        "node_modules/**"
     ],
     "include": [
-        "src/**/*.ts"
-    ],
+        "src/**/*.ts",
+        "src/**/*.tsx"
+    ]
 }
