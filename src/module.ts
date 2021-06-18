@@ -49,7 +49,7 @@ Hooks.once("ready", () => {
 
 Hooks.on("updateTile", (_: unknown, update: Tile.Data) => {
     // @ts-ignore
-    if (game.canvas != null && game.canvas.ready) {
+    if (game.canvas?.ready) {
         // @ts-ignore
         const tile: Tile = game.canvas.background.get(update._id) ?? game.canvas.foreground.get(update._id);
 
@@ -59,7 +59,7 @@ Hooks.on("updateTile", (_: unknown, update: Tile.Data) => {
 
 Hooks.on("canvasReady", () => {
     // @ts-ignore
-    if (game.canvas !== null && game.canvas.ready) {
+    if (game.canvas?.ready) {
         // @ts-ignore
         const tiles = [...game.canvas.background.tiles, ...game.canvas.foreground.tiles];
         console.log(tiles);
@@ -71,7 +71,7 @@ Hooks.on("canvasReady", () => {
 
 async function handleHorizontalMirror() {
     // @ts-ignore
-    if (game.canvas !== null && game.canvas.ready) {
+    if (game.canvas?.ready) {
         // @ts-ignore
         const controlledTokens = game.canvas?.tokens.controlled ?? [];
         for (const token of controlledTokens) {
@@ -95,9 +95,9 @@ async function handleHorizontalMirror() {
 
 async function handleVerticalMirror() {
     // @ts-ignore
-    if (game.canvas !== null && game.canvas.ready) {
+    if (game.canvas?.ready) {
         // @ts-ignore
-        const controlledTokens = game.canvas?.tokens.controlled ?? [];
+        const controlledTokens = game.canvas.tokens.controlled ?? [];
         for (const token of controlledTokens) {
             // @ts-ignore
             await token.document.update({ "mirrorY": !token.data.mirrorY });
@@ -105,9 +105,9 @@ async function handleVerticalMirror() {
 
         const controlledTiles = [
             // @ts-ignore
-            ...game.canvas?.background.controlled as Tile[] ?? [],
+            ...game.canvas.background.controlled as Tile[] ?? [],
             // @ts-ignore
-            ...game.canvas?.foreground.controlled as Tile[] ?? []
+            ...game.canvas.foreground.controlled as Tile[] ?? []
         ];
         for (const tile of controlledTiles) {
             // @ts-ignore

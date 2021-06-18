@@ -1,5 +1,5 @@
 # v1.2.0
-* Support for Foundry 0.8.6
+* Support for Foundry 0.8.6+
 
 # v1.1.0
 Tiles!
