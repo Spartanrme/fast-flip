@@ -1,3 +1,7 @@
+# v2.0.0
+* Support for Foundry V9
+* Migrate to the new V9 Keybindings API (this is a breaking change that requires V9 minimum)
+
 # v1.2.0
 * Support for Foundry 0.8.6+
 
