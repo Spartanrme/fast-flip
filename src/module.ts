@@ -18,7 +18,7 @@ Hooks.once("init", () => {
             name: MIRROR_HORIZONTAL_HOT_KEY,
             hint: "Horizontally mirrors the selected tile or token",
             editable: [
-                { key: "F" },
+                { key: "KeyF" },
             ],
             onDown: handleHorizontalMirror,
             precedence: (CONST as any).KEYBINDING_PRECEDENCE.NORMAL,
@@ -31,7 +31,7 @@ Hooks.once("init", () => {
             name: MIRROR_VERTICAL_HOT_KEY,
             hint: "Vertically mirrors the selected tile or token",
             editable: [
-                { key: "F", modifiers: ["Shift"] },
+                { key: "KeyF", modifiers: ["Shift"] },
             ],
             onDown: handleVerticalMirror,
             precedence: (CONST as any).KEYBINDING_PRECEDENCE.NORMAL,
