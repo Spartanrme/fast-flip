@@ -17,7 +17,7 @@
         "mod.js"
     ],
     "url": "https://github.com/Mr-Byte/fast-flip",
-    "download": "https://github.com/Mr-Byte/fast-flip/releases/download/v1.2.0/bytes-5e-tools.zip",
+    "download": "https://github.com/Mr-Byte/fast-flip/releases/download/v2.0.0/fast-flip.zip",
     "manifest": "https://raw.githubusercontent.com/Mr-Byte/fast-flip/main/module.json",
     "bugs": "https://github.com/Mr-Byte/fast-flip/issues",
     "allowBugReporter": true,
