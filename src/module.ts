@@ -12,57 +12,55 @@ interface TileFlags {
     [TileMirror.HORIZONTAL]?: boolean;
 }
 
-Hooks.once("ready", () => {
-    if (!game.modules.get("lib-df-hotkeys")?.active) {
-        if (game.user?.isGM) {
-            ui.notifications?.error("'Fast Flip!' requires the 'Library: DF Hotkeys' module. Please install and activate this dependency.");
-        }
+Hooks.once("init", () => {
+    if (game instanceof Game) {
+        (game as any).keybindings.register(MODULE_NAME, "horizontalFlip", {
+            name: MIRROR_HORIZONTAL_HOT_KEY,
+            hint: "Horizontally mirrors the selected tile or token",
+            editable: [
+                { key: "F" },
+            ],
+            onDown: handleHorizontalMirror,
+            precedence: (CONST as any).KEYBINDING_PRECEDENCE.NORMAL,
+            restrictied: false,
+            reservedModifiers: [],
+            repeat: false,
+        });
 
-        return;
+        (game as any).keybindings.register(MODULE_NAME, "verticalFlip", {
+            name: MIRROR_VERTICAL_HOT_KEY,
+            hint: "Vertically mirrors the selected tile or token",
+            editable: [
+                { key: "F", modifiers: ["Shift"] },
+            ],
+            onDown: handleVerticalMirror,
+            precedence: (CONST as any).KEYBINDING_PRECEDENCE.NORMAL,
+            restrictied: false,
+            reservedModifiers: [],
+            repeat: false,
+        });
     }
 
-    Hotkeys.registerGroup({
-        name: MODULE_NAME,
-        label: "Fast Flip!"
-    });
-
-    Hotkeys.registerShortcut(
-        {
-            name: MIRROR_HORIZONTAL_HOT_KEY,
-            label: MIRROR_HORIZONTAL_HOT_KEY,
-            group: MODULE_NAME,
-            default: () => { return { key: Hotkeys.keys.KeyF, alt: false, ctrl: false, shift: false }; },
-            onKeyDown: handleHorizontalMirror,
-        }
-    );
-
-    Hotkeys.registerShortcut(
-        {
-            name: MIRROR_VERTICAL_HOT_KEY,
-            label: MIRROR_VERTICAL_HOT_KEY,
-            group: MODULE_NAME,
-            default: () => { return { key: Hotkeys.keys.KeyF, alt: false, ctrl: false, shift: true }; },
-            onKeyDown: handleVerticalMirror,
-        }
-    )
 });
 
-Hooks.on("updateTile", (_: unknown, update: Tile.Data) => {
-    // @ts-ignore
-    if (game.canvas?.ready) {
-        // @ts-ignore
-        const tile: Tile = game.canvas.background.get(update._id) ?? game.canvas.foreground.get(update._id);
+Hooks.on("updateTile", (_: unknown, update: foundry.data.TileData) => {
+    if (game instanceof Game && game.canvas?.ready && update._id) {
+        const tile = game.canvas.background?.get(update._id)
+            ?? game.canvas.foreground?.get(update._id);
 
-        updateTileOrientation(tile);
+        if (tile) {
+            updateTileOrientation(tile);
+        }
     }
 });
 
 Hooks.on("canvasReady", () => {
-    // @ts-ignore
-    if (game.canvas?.ready) {
-        // @ts-ignore
-        const tiles = [...game.canvas.background.tiles, ...game.canvas.foreground.tiles];
-        console.log(tiles);
+    if (game instanceof Game && game.canvas?.ready) {
+        const tiles = [
+            ...game.canvas.background?.tiles ?? [],
+            ...game.canvas.foreground?.tiles ?? []
+        ];
+
         for (const tile of tiles) {
             updateTileOrientation(tile);
         }
@@ -70,49 +68,36 @@ Hooks.on("canvasReady", () => {
 });
 
 async function handleHorizontalMirror() {
-    // @ts-ignore
-    if (game.canvas?.ready) {
-        // @ts-ignore
-        const controlledTokens = game.canvas?.tokens.controlled ?? [];
+    if (game instanceof Game && game.canvas?.ready) {
+        const controlledTokens = game.canvas.tokens?.controlled ?? [];
         for (const token of controlledTokens) {
             await token.document.update({ "mirrorX": !token.data.mirrorX });
         }
 
         const controlledTiles = [
-            // @ts-ignore
-            ...game.canvas?.background.controlled as Tile[] ?? [],
-            // @ts-ignore
-            ...game.canvas?.foreground.controlled as Tile[] ?? []
+            ...game.canvas.background?.controlled ?? [],
+            ...game.canvas.foreground?.controlled ?? []
         ];
         for (const tile of controlledTiles) {
-            // @ts-ignore
-            const previousState = tile.document.getFlag(MODULE_NAME, TileMirror.HORIZONTAL) as boolean;
-            // @ts-ignore
+            const previousState = tile.document.getFlag(MODULE_NAME, TileMirror.HORIZONTAL);
             await tile.document.setFlag(MODULE_NAME, TileMirror.HORIZONTAL, !previousState);
         }
     }
 }
 
 async function handleVerticalMirror() {
-    // @ts-ignore
-    if (game.canvas?.ready) {
-        // @ts-ignore
-        const controlledTokens = game.canvas.tokens.controlled ?? [];
+    if (game instanceof Game && game.canvas?.ready) {
+        const controlledTokens = game.canvas.tokens?.controlled ?? [];
         for (const token of controlledTokens) {
-            // @ts-ignore
             await token.document.update({ "mirrorY": !token.data.mirrorY });
         }
 
         const controlledTiles = [
-            // @ts-ignore
-            ...game.canvas.background.controlled as Tile[] ?? [],
-            // @ts-ignore
-            ...game.canvas.foreground.controlled as Tile[] ?? []
+            ...game.canvas.background?.controlled ?? [],
+            ...game.canvas.foreground?.controlled ?? []
         ];
         for (const tile of controlledTiles) {
-            // @ts-ignore
-            const previousState = tile.document.getFlag(MODULE_NAME, TileMirror.VERTICAL) as boolean;
-            // @ts-ignore
+            const previousState = tile.document.getFlag(MODULE_NAME, TileMirror.VERTICAL);
             await tile.document.setFlag(MODULE_NAME, TileMirror.VERTICAL, !previousState);
         }
     }
@@ -120,10 +105,8 @@ async function handleVerticalMirror() {
 
 function updateTileOrientation(tile: Tile) {
     if (tile.texture != null) {
-        // @ts-ignore
-        const flipHorizontal = tile.document.getFlag(MODULE_NAME, TileMirror.HORIZONTAL) as boolean | undefined;
-        // @ts-ignore
-        const flipVerical = tile.document.getFlag(MODULE_NAME, TileMirror.VERTICAL) as boolean | undefined;
+        const flipHorizontal = tile.document.getFlag(MODULE_NAME, TileMirror.HORIZONTAL);
+        const flipVerical = tile.document.getFlag(MODULE_NAME, TileMirror.VERTICAL);
 
         const mirrorHorizontal = flipHorizontal ? PIXI.groupD8.MIRROR_HORIZONTAL : 0;
         const mirrorVertical = flipVerical ? PIXI.groupD8.MIRROR_VERTICAL : 0;
