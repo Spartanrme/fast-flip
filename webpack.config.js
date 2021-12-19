@@ -33,7 +33,7 @@ module.exports = async env => {
             ...plugins,
             new ZipPlugin({
                 path: path.join(__dirname, "artifacts"),
-                filename: "bytes-5e-tools",
+                filename: "fast-flip",
             })
         ];
     }
