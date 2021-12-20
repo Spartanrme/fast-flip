@@ -23,6 +23,7 @@ module.exports = async env => {
         new CopyPlugin({
             patterns: [
                 "lang/**/*",
+                "icons/**/*.svg",
                 "module.json"
             ]
         })

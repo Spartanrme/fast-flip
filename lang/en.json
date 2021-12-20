@@ -1,4 +1,17 @@
 {
     "fast-flip.mirror-horizontal-hotkey": "Horizontally Mirror Selected",
-    "fast-flip.mirror-vertical-hotkey": "Vertically Mirror Selected"
+    "fast-flip.mirror-horizontal-hint": "Horizontally mirrors the selected tile or token",
+    "fast-flip.mirror-horizontal-button": "Mirror Horizontally",
+    "fast-flip.mirror-vertical-hotkey": "Vertically Mirror Selected",
+    "fast-flip.mirror-vertical-hint": "Vertically mirrors the selected tile or token",
+    "fast-flip.mirror-vertical-button": "Mirror Vertically",
+    "fast-flip.toggle-afk-hotkey": "Toggle AFK Status",
+    "fast-flip.toggle-afk-hint": "Toggles the AFK status of the selected tokens",
+    "fast-flip.toggle-afk-button": "Toggle AFK Status",
+    "fast-flip.show-mirror-buttons": "Show Mirror Buttons",
+    "fast-flip.show-mirror-buttons-hint": "Show or hide the mirror buttons on the token HUD",
+    "fast-flip.show-toggle-afk-button": "Show AFK Toggle",
+    "fast-flip.show-toggle-afk-hint": "Show or hide the AFK toggle button on the token HUD",
+    "fast-flip.afk-overlay-icon-path": "AFK Icon Path",
+    "fast-flip.afk-overlay-icon-path-hint": "Path to the image to use for the AFK status indicator on tokens"
 }
