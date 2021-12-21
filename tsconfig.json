@@ -26,7 +26,8 @@
         "newLine": "lf",
         "skipLibCheck": true,
         "esModuleInterop": true,
-        "jsx": "react-jsx",
+        "jsx": "react",
+        "jsxFactory": "DOMFactory.createElement",
         "baseUrl": "./src",
     },
     "exclude": [
