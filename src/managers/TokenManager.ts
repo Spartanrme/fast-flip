@@ -20,6 +20,10 @@ export class TokenManager {
 
     async mirrorSelected(tokenMirrorDirection: TokenMirror) {
         for (const token of this.#controlledTokens) {
+            if (!token.isOwner) {
+                continue;
+            }
+
             await token.document.update({
                 [tokenMirrorDirection]: !token.data[tokenMirrorDirection]
             });
@@ -28,6 +32,10 @@ export class TokenManager {
 
     async toggleAFK() {
         for (const token of this.#controlledTokens) {
+            if (!token.isOwner || !token.actor?.hasPlayerOwner) {
+                continue;
+            }
+
             const isAFK = token.document.getFlag(MODULE_NAME, AFK_STATE_KEY);
             const afkIconPath = this.#settings.afkOverlayIconPath;
 
@@ -46,6 +54,6 @@ export class TokenManager {
     }
 
     get #controlledTokens(): Token[] {
-        return this.#game.canvas.tokens?.controlled ?? [];;
+        return this.#game.canvas.tokens?.controlled ?? [];
     }
 }
