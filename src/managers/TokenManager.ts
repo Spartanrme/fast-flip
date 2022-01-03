@@ -31,6 +31,10 @@ export class TokenManager {
     }
 
     async toggleAFK() {
+        if (!this.#settings.allowAFKToggle) {
+            return;
+        }
+
         for (const token of this.#controlledTokens) {
             if (!token.isOwner || !token.actor?.hasPlayerOwner) {
                 continue;

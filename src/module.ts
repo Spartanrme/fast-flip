@@ -113,7 +113,7 @@ class FastFlipModule {
             title: LOCALIZATION.TOGGLE_AFK_BUTTON,
             icon: toggleAFKIcon,
             onClick: async () => await this.#tokenManager.toggleAFK(),
-            shouldShow: (token) => settings.showToggleAFKButton && token.isOwner && (token.actor?.hasPlayerOwner ?? false),
+            shouldShow: (token) => settings.allowAFKToggle && settings.showToggleAFKButton && token.isOwner && (token.actor?.hasPlayerOwner ?? false),
         });
 
         this.#tileHUDManager.registerButton(`${MODULE_NAME}.mirror-horizontal`, {
