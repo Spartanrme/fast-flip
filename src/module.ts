@@ -1,8 +1,9 @@
 import { LOCALIZATION, MODULE_NAME } from "./constants";
 import { TokenManager, TokenMirror } from "./managers/TokenManager";
 import { TileManager, TileMirror } from "./managers/TileManager";
-import { TileHUDManager, TokenHUDManager } from "./managers/HUDManager";
 import { Settings } from "./Settings";
+import * as hud from "@mr-byte/byte-core/dist/types/ui/hud";
+import { getIcon } from "helpers";
 
 Hooks.once("init", () => {
     if (game instanceof Game) {
@@ -11,8 +12,9 @@ Hooks.once("init", () => {
 });
 
 class FastFlipModule {
-    readonly #tokenHUDManager: TokenHUDManager;
-    readonly #tileHUDManager: TileHUDManager;
+    #tokenHUDManager!: hud.Manager;
+    #tileHUDManager!: hud.Manager;
+
     readonly #tokenManager: TokenManager;
     readonly #tileManager: TileManager;
     readonly #game: Game;
@@ -20,71 +22,80 @@ class FastFlipModule {
     constructor(game: Game) {
         this.#game = game;
         const settings = new Settings(game);
-        this.#tokenHUDManager = new TokenHUDManager(game);
-        this.#tileHUDManager = new TileHUDManager(game);
         this.#tokenManager = new TokenManager(game, settings);
         this.#tileManager = new TileManager(game);
 
         this.#registerKeybindings();
-        this.#registerHUDButtons(settings);
+
+        Hooks.on("byte-core.init", async () => {
+            if (byteCore) {
+                this.#tokenHUDManager = await byteCore.tokenHUD;
+                this.#tileHUDManager = await byteCore.tileHUD;
+
+                this.#registerHUDButtons(settings);
+            }
+        });
     }
 
-
     #registerKeybindings() {
+        const horizontalFlip: () => void = async () => {
+            await this.#tokenManager.mirrorSelected(TokenMirror.HORIZONTAL);
+            await this.#tileManager.mirrorSelectedTiles(TileMirror.HORIZONTAL);
+        };
         this.#game.keybindings.register(MODULE_NAME, "horizontalFlip", {
             name: LOCALIZATION.MIRROR_HORIZONTAL_HOTKEY,
             hint: this.#game.i18n.localize(LOCALIZATION.MIRROR_HORIZONTAL_HINT),
             editable: [
                 { key: "KeyF" },
             ],
-            onDown: async () => {
-                await this.#tokenManager.mirrorSelected(TokenMirror.HORIZONTAL);
-                await this.#tileManager.mirrorSelectedTiles(TileMirror.HORIZONTAL);
-            },
-            // TODO: Fix this once V9 bindings are out.
-            precedence: (CONST as any).KEYBINDING_PRECEDENCE.NORMAL,
-            restrictied: false,
+            onDown: horizontalFlip,
+            precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
+            restricted: false,
             reservedModifiers: [],
             repeat: false,
         });
 
+        const verticalFlip: () => void = async () => {
+            await this.#tokenManager.mirrorSelected(TokenMirror.VERTICAL);
+            await this.#tileManager.mirrorSelectedTiles(TileMirror.VERTICAL);
+        };
         this.#game.keybindings.register(MODULE_NAME, "verticalFlip", {
             name: LOCALIZATION.MIRROR_VERTICAL_HOTKEY,
             hint: this.#game.i18n.localize(LOCALIZATION.MIRROR_VERTICAL_HINT),
             editable: [
                 { key: "KeyF", modifiers: ["SHIFT"] },
             ],
-            onDown: async () => {
-                await this.#tokenManager.mirrorSelected(TokenMirror.VERTICAL);
-                await this.#tileManager.mirrorSelectedTiles(TileMirror.VERTICAL);
-            },
-            // TODO: Fix this once V9 bindings are out.
-            precedence: (CONST as any).KEYBINDING_PRECEDENCE.NORMAL,
-            restrictied: false,
+            onDown: verticalFlip,
+            precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
+            restricted: false,
             reservedModifiers: [],
             repeat: false,
         });
 
+        const toggleAFK: () => void = async () => await this.#tokenManager.toggleAFK();
         this.#game.keybindings.register(MODULE_NAME, LOCALIZATION.TOGGLE_AFK_HOTKEY, {
             name: LOCALIZATION.TOGGLE_AFK_HOTKEY,
             hint: this.#game.i18n.localize(LOCALIZATION.TOGGLE_AFK_HINT),
             editable: [
                 { key: "KeyK", modifiers: ["SHIFT"] },
             ],
-            onDown: async () => await this.#tokenManager.toggleAFK(),
-            // TODO: Fix this once V9 bindings are out.
-            precedence: (CONST as any).KEYBINDING_PRECEDENCE.NORMAL,
-            restrictied: false,
+            onDown: toggleAFK,
+            precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
+            restricted: false,
             reservedModifiers: [],
             repeat: false,
         });
     }
 
     #registerHUDButtons(settings: Settings) {
+        const mirrorHorizontalIcon = getIcon("mirror-horizontal");
+        const mirrorVerticalIcon = getIcon("mirror-vertical");
+        const toggleAFKIcon = getIcon("toggle-afk");
+
         this.#tokenHUDManager.registerButton(`${MODULE_NAME}.mirror-horizontal`, {
             side: "left",
             title: LOCALIZATION.MIRROR_HORIZONTAL_BUTTON,
-            icon: "mirror-horizontal",
+            icon: mirrorHorizontalIcon,
             onClick: async () => await this.#tokenManager.mirrorSelected(TokenMirror.HORIZONTAL),
             shouldShow: () => settings.showMirrorButtons,
         });
@@ -92,7 +103,7 @@ class FastFlipModule {
         this.#tokenHUDManager.registerButton(`${MODULE_NAME}.mirror-vertical`, {
             side: "left",
             title: LOCALIZATION.MIRROR_VERTICAL_BUTTON,
-            icon: "mirror-vertical",
+            icon: mirrorVerticalIcon,
             onClick: async () => await this.#tokenManager.mirrorSelected(TokenMirror.VERTICAL),
             shouldShow: () => settings.showMirrorButtons,
         });
@@ -100,7 +111,7 @@ class FastFlipModule {
         this.#tokenHUDManager.registerButton(`${MODULE_NAME}.toggle-afk`, {
             side: "right",
             title: LOCALIZATION.TOGGLE_AFK_BUTTON,
-            icon: "toggle-afk",
+            icon: toggleAFKIcon,
             onClick: async () => await this.#tokenManager.toggleAFK(),
             shouldShow: () => settings.showToggleAFKButton,
         });
@@ -108,14 +119,14 @@ class FastFlipModule {
         this.#tileHUDManager.registerButton(`${MODULE_NAME}.mirror-horizontal`, {
             side: "left",
             title: LOCALIZATION.MIRROR_HORIZONTAL_BUTTON,
-            icon: "mirror-horizontal",
+            icon: mirrorHorizontalIcon,
             onClick: async () => await this.#tileManager.mirrorSelectedTiles(TileMirror.HORIZONTAL),
         });
 
         this.#tileHUDManager.registerButton(`${MODULE_NAME}.mirror-vertical`, {
             side: "left",
             title: LOCALIZATION.MIRROR_VERTICAL_BUTTON,
-            icon: "mirror-vertical",
+            icon: mirrorVerticalIcon,
             onClick: async () => await this.#tileManager.mirrorSelectedTiles(TileMirror.VERTICAL),
         });
     }

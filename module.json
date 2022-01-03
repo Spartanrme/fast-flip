@@ -16,6 +16,11 @@
     "scripts": [
         "mod.js"
     ],
+    "dependencies": [
+        {
+            "name": "byte-core"
+        }
+    ],
     "url": "https://github.com/Mr-Byte/fast-flip",
     "download": "https://github.com/Mr-Byte/fast-flip/releases/download/v2.1.0/fast-flip.zip",
     "manifest": "https://raw.githubusercontent.com/Mr-Byte/fast-flip/main/module.json",

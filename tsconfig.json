@@ -21,13 +21,12 @@
             "src/types"
         ],
         "types": [
-            "@league-of-foundry-developers/foundry-vtt-types"
+            "@league-of-foundry-developers/foundry-vtt-types",
+            "@mr-byte/byte-core"
         ],
         "newLine": "lf",
         "skipLibCheck": true,
         "esModuleInterop": true,
-        "jsx": "react",
-        "jsxFactory": "DOMFactory.createElement",
         "baseUrl": "./src",
     },
     "exclude": [
