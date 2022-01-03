@@ -26,7 +26,7 @@
   "homepage": "https://github.com/Mr-Byte/fast-flip#readme",
   "dependencies": {
     "@league-of-foundry-developers/foundry-vtt-types": "^9.238.0",
-    "@mr-byte/byte-core": "^1.0.0"
+    "@mr-byte/byte-core": "^1.1.0"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.4",

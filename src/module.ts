@@ -12,8 +12,8 @@ Hooks.once("init", () => {
 });
 
 class FastFlipModule {
-    #tokenHUDManager!: hud.Manager;
-    #tileHUDManager!: hud.Manager;
+    #tokenHUDManager!: hud.Manager<Token>;
+    #tileHUDManager!: hud.Manager<Tile>;
 
     readonly #tokenManager: TokenManager;
     readonly #tileManager: TileManager;
@@ -97,7 +97,7 @@ class FastFlipModule {
             title: LOCALIZATION.MIRROR_HORIZONTAL_BUTTON,
             icon: mirrorHorizontalIcon,
             onClick: async () => await this.#tokenManager.mirrorSelected(TokenMirror.HORIZONTAL),
-            shouldShow: () => settings.showMirrorButtons,
+            shouldShow: (token) => settings.showMirrorButtons && token.isOwner,
         });
 
         this.#tokenHUDManager.registerButton(`${MODULE_NAME}.mirror-vertical`, {
@@ -105,7 +105,7 @@ class FastFlipModule {
             title: LOCALIZATION.MIRROR_VERTICAL_BUTTON,
             icon: mirrorVerticalIcon,
             onClick: async () => await this.#tokenManager.mirrorSelected(TokenMirror.VERTICAL),
-            shouldShow: () => settings.showMirrorButtons,
+            shouldShow: (token) => settings.showMirrorButtons && token.isOwner,
         });
 
         this.#tokenHUDManager.registerButton(`${MODULE_NAME}.toggle-afk`, {
@@ -113,7 +113,7 @@ class FastFlipModule {
             title: LOCALIZATION.TOGGLE_AFK_BUTTON,
             icon: toggleAFKIcon,
             onClick: async () => await this.#tokenManager.toggleAFK(),
-            shouldShow: () => settings.showToggleAFKButton,
+            shouldShow: (token) => settings.showToggleAFKButton && token.isOwner && (token.actor?.hasPlayerOwner ?? false),
         });
 
         this.#tileHUDManager.registerButton(`${MODULE_NAME}.mirror-horizontal`, {
