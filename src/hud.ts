@@ -12,7 +12,16 @@ export const enum Name {
     TileHUD = "TileHUD",
 }
 
+type Brand<T> = T extends Tile
+    ? typeof Name["TileHUD"]
+    : T extends Token
+    ? typeof Name["TokenHUD"]
+    : T extends Drawing
+    ? typeof Name["DrawingHUD"]
+    : never;
+
 export class HUD<T extends PlaceableObject> {
+    readonly __brand!: Brand<T>;
     readonly #game: Game;
     readonly #buttons: Map<string, ButtonProps<T>>;
 
