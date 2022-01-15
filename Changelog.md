@@ -1,3 +1,6 @@
+# v2.3.0
+* Add a seting to enable/disable sending AFK status indicators in chat
+
 # v2.2.0
 * Make AFK indicators a world option that can be disabled for all players
 * Only show the AFK toggle on tokens owned by players and only for the owners of the token
