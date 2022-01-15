@@ -3,7 +3,7 @@ import { Settings } from "../Settings";
 
 export const enum TokenMirror {
     HORIZONTAL = "mirrorX",
-    VERTICAL = "mirrorY"
+    VERTICAL = "mirrorY",
 }
 
 const AFK_STATE_KEY = "afk-state";
@@ -25,7 +25,7 @@ export class TokenManager {
             }
 
             await token.document.update({
-                [tokenMirrorDirection]: !token.data[tokenMirrorDirection]
+                [tokenMirrorDirection]: !token.data[tokenMirrorDirection],
             });
         }
     }
@@ -44,13 +44,25 @@ export class TokenManager {
             const afkIconPath = this.#settings.afkOverlayIconPath;
 
             if (isAFK) {
-                const previousOverlayEffect = token.document.getFlag(MODULE_NAME, PREVIOUS_OVERLAY_STATE_FFECT_KEY) as string | null | undefined;
-                await token.document.unsetFlag(MODULE_NAME, PREVIOUS_OVERLAY_STATE_FFECT_KEY);
+                const previousOverlayEffect = token.document.getFlag(
+                    MODULE_NAME,
+                    PREVIOUS_OVERLAY_STATE_FFECT_KEY,
+                ) as string | null | undefined;
+                await token.document.unsetFlag(
+                    MODULE_NAME,
+                    PREVIOUS_OVERLAY_STATE_FFECT_KEY,
+                );
                 await token.document.setFlag(MODULE_NAME, AFK_STATE_KEY, false);
-                await token.document.update({ overlayEffect: previousOverlayEffect ?? null });
+                await token.document.update({
+                    overlayEffect: previousOverlayEffect ?? null,
+                });
             } else {
                 const previousOverlayEffect = token.data.overlayEffect;
-                await token.document.setFlag(MODULE_NAME, PREVIOUS_OVERLAY_STATE_FFECT_KEY, previousOverlayEffect);
+                await token.document.setFlag(
+                    MODULE_NAME,
+                    PREVIOUS_OVERLAY_STATE_FFECT_KEY,
+                    previousOverlayEffect,
+                );
                 await token.document.setFlag(MODULE_NAME, AFK_STATE_KEY, true);
                 await token.document.update({ overlayEffect: afkIconPath });
             }

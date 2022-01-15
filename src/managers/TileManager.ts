@@ -2,7 +2,7 @@ import { MODULE_NAME } from "../constants";
 
 export const enum TileMirror {
     HORIZONTAL = "tileMirrorHorizontal",
-    VERTICAL = "tileMirrorVertical"
+    VERTICAL = "tileMirrorVertical",
 }
 
 export class TileManager {
@@ -17,8 +17,15 @@ export class TileManager {
 
     async mirrorSelectedTiles(tileMirrorDirection: TileMirror) {
         for (const tile of this.#controlledTiles) {
-            const previousState = tile.document.getFlag(MODULE_NAME, tileMirrorDirection);
-            await tile.document.setFlag(MODULE_NAME, tileMirrorDirection, !previousState);
+            const previousState = tile.document.getFlag(
+                MODULE_NAME,
+                tileMirrorDirection,
+            );
+            await tile.document.setFlag(
+                MODULE_NAME,
+                tileMirrorDirection,
+                !previousState,
+            );
         }
     }
 
@@ -26,7 +33,7 @@ export class TileManager {
         for (const tile of this.#allTiles) {
             this.#updateTileOrientation(tile);
         }
-    };
+    }
 
     #onUpdateTile(_: unknown, update: foundry.data.TileData) {
         if (update._id && update.flags?.[MODULE_NAME]) {
@@ -36,14 +43,24 @@ export class TileManager {
                 this.#updateTileOrientation(tile);
             }
         }
-    };
+    }
 
     #updateTileOrientation(tile: Tile) {
         if (tile.texture) {
-            const flipHorizontal = tile.document.getFlag(MODULE_NAME, TileMirror.HORIZONTAL);
-            const flipVerical = tile.document.getFlag(MODULE_NAME, TileMirror.VERTICAL);
-            const mirrorHorizontal = flipHorizontal ? PIXI.groupD8.MIRROR_HORIZONTAL : 0;
-            const mirrorVertical = flipVerical ? PIXI.groupD8.MIRROR_VERTICAL : 0;
+            const flipHorizontal = tile.document.getFlag(
+                MODULE_NAME,
+                TileMirror.HORIZONTAL,
+            );
+            const flipVerical = tile.document.getFlag(
+                MODULE_NAME,
+                TileMirror.VERTICAL,
+            );
+            const mirrorHorizontal = flipHorizontal
+                ? PIXI.groupD8.MIRROR_HORIZONTAL
+                : 0;
+            const mirrorVertical = flipVerical
+                ? PIXI.groupD8.MIRROR_VERTICAL
+                : 0;
             const rotate = PIXI.groupD8.add(mirrorHorizontal, mirrorVertical);
 
             tile.texture.rotate = rotate;
@@ -53,19 +70,22 @@ export class TileManager {
 
     get #allTiles(): Tile[] {
         return [
-            ...this.#game.canvas.background?.tiles ?? [],
-            ...this.#game.canvas.foreground?.tiles ?? []
+            ...(this.#game.canvas.background?.tiles ?? []),
+            ...(this.#game.canvas.foreground?.tiles ?? []),
         ];
     }
 
     get #controlledTiles(): Tile[] {
         return [
-            ...this.#game.canvas.background?.controlled ?? [],
-            ...this.#game.canvas.foreground?.controlled ?? []
+            ...(this.#game.canvas.background?.controlled ?? []),
+            ...(this.#game.canvas.foreground?.controlled ?? []),
         ];
     }
 
     #findTile(id: string): Tile | undefined {
-        return this.#game.canvas.background?.get(id) ?? this.#game.canvas.foreground?.get(id);
+        return (
+            this.#game.canvas.background?.get(id) ??
+            this.#game.canvas.foreground?.get(id)
+        );
     }
 }

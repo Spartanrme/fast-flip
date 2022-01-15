@@ -18,4 +18,4 @@ export namespace LOCALIZATION {
     export const AFK_OVERLAY_ICON_PATH_HINT = `${MODULE_NAME}.afk-overlay-icon-path-hint`;
     export const ALLOW_AFK_TOGGLE = `${MODULE_NAME}.allow-afk-toggle`;
     export const ALLOW_AFK_TOGGLE_HINT = `${MODULE_NAME}.allow-afk-toggle-hint`;
-};
+}

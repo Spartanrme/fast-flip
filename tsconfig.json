@@ -22,7 +22,6 @@
         ],
         "types": [
             "@league-of-foundry-developers/foundry-vtt-types",
-            "@mr-byte/byte-core"
         ],
         "newLine": "lf",
         "skipLibCheck": true,

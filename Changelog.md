@@ -1,3 +1,7 @@
+# v2.2.0
+* Make AFK indicators a world option that can be disabled for all players
+* Only show the AFK toggle on tokens owned by players and only for the owners of the token
+
 # v2.1.0
 * Added a `Shift+K` (default binding) shortcut to mark a token as AFK
 * Added token HUD buttons for mirroring tokens and marking tokens as AFK

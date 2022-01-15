@@ -1,52 +1,51 @@
 {
-  "name": "fast-flip",
-  "version": "1.1.0",
-  "description": "Foundry VTT Module",
-  "main": "index.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Mr-Byte/fast-flip.git"
-  },
-  "author": "",
-  "license": "MIT",
-  "scripts": {
-    "build": "webpack --env=development",
-    "build:release": "webpack --env=production"
-  },
-  "sideEffects": [
-    "./src/module.ts"
-  ],
-  "bugs": {
-    "url": "https://github.com/Mr-Byte/fast-flip/issues"
-  },
-  "homepage": "https://github.com/Mr-Byte/fast-flip#readme",
-  "dependencies": {
-    "@league-of-foundry-developers/foundry-vtt-types": "^9.238.0",
-    "@mr-byte/byte-core": "^1.1.0"
-  },
-  "devDependencies": {
-    "@types/lodash-es": "^4.17.4",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
-    "copy-webpack-plugin": "^8.1.1",
-    "css-loader": "^5.2.4",
-    "eslint": "^7.24.0",
-    "eslint-webpack-plugin": "^2.5.4",
-    "file-loader": "^6.2.0",
-    "less": "^4.1.1",
-    "less-loader": "^8.1.1",
-    "mini-css-extract-plugin": "^1.5.1",
-    "rimraf": "^3.0.2",
-    "style-loader": "^2.0.0",
-    "terser-webpack-plugin": "^5.1.1",
-    "ts-loader": "^9.0.0",
-    "typescript": "^4.3.1-rc",
-    "webpack": "^5.33.2",
-    "webpack-cli": "^4.6.0",
-    "zip-webpack-plugin": "^4.0.1"
-  }
+    "name": "fast-flip",
+    "version": "2.2.0",
+    "description": "Foundry VTT Module",
+    "main": "index.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Mr-Byte/fast-flip.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "scripts": {
+        "build": "webpack --env=development",
+        "build:release": "webpack --env=production"
+    },
+    "sideEffects": [
+        "./src/module.ts"
+    ],
+    "bugs": {
+        "url": "https://github.com/Mr-Byte/fast-flip/issues"
+    },
+    "homepage": "https://github.com/Mr-Byte/fast-flip#readme",
+    "dependencies": {
+        "@league-of-foundry-developers/foundry-vtt-types": "^9.238.0"
+    },
+    "devDependencies": {
+        "@types/lodash-es": "^4.17.4",
+        "@typescript-eslint/eslint-plugin": "^4.22.0",
+        "@typescript-eslint/parser": "^4.22.0",
+        "copy-webpack-plugin": "^8.1.1",
+        "css-loader": "^5.2.4",
+        "eslint": "^7.24.0",
+        "eslint-webpack-plugin": "^2.5.4",
+        "file-loader": "^6.2.0",
+        "less": "^4.1.1",
+        "less-loader": "^8.1.1",
+        "mini-css-extract-plugin": "^1.5.1",
+        "rimraf": "^3.0.2",
+        "style-loader": "^2.0.0",
+        "terser-webpack-plugin": "^5.1.1",
+        "ts-loader": "^9.0.0",
+        "typescript": "^4.3.1-rc",
+        "webpack": "^5.33.2",
+        "webpack-cli": "^4.6.0",
+        "zip-webpack-plugin": "^4.0.1"
+    }
 }
