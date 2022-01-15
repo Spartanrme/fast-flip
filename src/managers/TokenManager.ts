@@ -1,4 +1,4 @@
-import { MODULE_NAME } from "../constants";
+import { LOCALIZATION, MODULE_NAME } from "../constants";
 import { Settings } from "../Settings";
 
 export const enum TokenMirror {
@@ -56,6 +56,18 @@ export class TokenManager {
                 await token.document.update({
                     overlayEffect: previousOverlayEffect ?? null,
                 });
+
+                this.#settings.showAFKStatusInChat &&
+                    ChatMessage.create({
+                        type: CONST.CHAT_MESSAGE_TYPES.OOC,
+                        speaker: { token: token.id },
+                        content: this.#game.i18n.format(
+                            LOCALIZATION.CHAT_RETURNED_MESSAGE,
+                            {
+                                name: token.name,
+                            },
+                        ),
+                    });
             } else {
                 const previousOverlayEffect = token.data.overlayEffect;
                 await token.document.setFlag(
@@ -65,6 +77,18 @@ export class TokenManager {
                 );
                 await token.document.setFlag(MODULE_NAME, AFK_STATE_KEY, true);
                 await token.document.update({ overlayEffect: afkIconPath });
+
+                this.#settings.showAFKStatusInChat &&
+                    ChatMessage.create({
+                        type: CONST.CHAT_MESSAGE_TYPES.OOC,
+                        speaker: { token: token.id },
+                        content: this.#game.i18n.format(
+                            LOCALIZATION.CHAT_AFK_MESSAGE,
+                            {
+                                name: token.name,
+                            },
+                        ),
+                    });
             }
         }
     }

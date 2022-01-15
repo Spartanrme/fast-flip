@@ -1,12 +1,17 @@
 import { getIcon } from "./helpers";
 import { LOCALIZATION, MODULE_NAME } from "./constants";
 
-namespace SETTING {
-    export const ALLOW_AFK_TOGGLE = "allow-afk-toggle";
-    export const SHOW_MIRROR_BUTTONS_ON_HUD = "show-mirror-buttons-hud";
-    export const SHOW_TOGGLE_AFK_BUTTON_ON_HUD = "show-toggle-afk-hud";
-    export const AFK_OVERLAY_ICON_PATH = "afk-overlay-icon-path";
+enum SETTING {
+    ALLOW_AFK_TOGGLE = "allow-afk-toggle",
+    SHOW_AFK_STATUS_IN_CHAT = "show-afk-status-in-chat",
+    SHOW_MIRROR_BUTTONS_ON_HUD = "show-mirror-buttons-hud",
+    SHOW_TOGGLE_AFK_BUTTON_ON_HUD = "show-toggle-afk-hud",
+    AFK_OVERLAY_ICON_PATH = "afk-overlay-icon-path",
 }
+
+type SettingMap = {
+    [K in SETTING]: ClientSettings.PartialSetting<string | boolean | number>;
+};
 
 export class Settings {
     readonly #game: Game;
@@ -17,10 +22,8 @@ export class Settings {
     }
 
     #registerSettings() {
-        this.#game.settings.register(
-            MODULE_NAME,
-            SETTING.AFK_OVERLAY_ICON_PATH,
-            {
+        const settings: SettingMap = {
+            [SETTING.AFK_OVERLAY_ICON_PATH]: {
                 name: this.#game.i18n.localize(
                     LOCALIZATION.AFK_OVERLAY_ICON_PATH,
                 ),
@@ -32,21 +35,29 @@ export class Settings {
                 default: getIcon("afk"),
                 filePicker: "imagevideo",
             },
-        );
-
-        this.#game.settings.register(MODULE_NAME, SETTING.ALLOW_AFK_TOGGLE, {
-            name: this.#game.i18n.localize(LOCALIZATION.ALLOW_AFK_TOGGLE),
-            hint: this.#game.i18n.localize(LOCALIZATION.ALLOW_AFK_TOGGLE_HINT),
-            scope: "world",
-            config: true,
-            default: true,
-            type: Boolean,
-        });
-
-        this.#game.settings.register(
-            MODULE_NAME,
-            SETTING.SHOW_MIRROR_BUTTONS_ON_HUD,
-            {
+            [SETTING.ALLOW_AFK_TOGGLE]: {
+                name: this.#game.i18n.localize(LOCALIZATION.ALLOW_AFK_TOGGLE),
+                hint: this.#game.i18n.localize(
+                    LOCALIZATION.ALLOW_AFK_TOGGLE_HINT,
+                ),
+                scope: "world",
+                config: true,
+                default: true,
+                type: Boolean,
+            },
+            [SETTING.SHOW_AFK_STATUS_IN_CHAT]: {
+                name: this.#game.i18n.localize(
+                    LOCALIZATION.SHOW_AFK_STATUS_IN_CHAT,
+                ),
+                hint: this.#game.i18n.localize(
+                    LOCALIZATION.SHOW_AFK_STATUS_IN_CHAT_HINT,
+                ),
+                scope: "world",
+                config: true,
+                default: true,
+                type: Boolean,
+            },
+            [SETTING.SHOW_MIRROR_BUTTONS_ON_HUD]: {
                 name: this.#game.i18n.localize(
                     LOCALIZATION.SHOW_MIRROR_BUTTONS,
                 ),
@@ -58,12 +69,7 @@ export class Settings {
                 default: true,
                 type: Boolean,
             },
-        );
-
-        this.#game.settings.register(
-            MODULE_NAME,
-            SETTING.SHOW_TOGGLE_AFK_BUTTON_ON_HUD,
-            {
+            [SETTING.SHOW_TOGGLE_AFK_BUTTON_ON_HUD]: {
                 name: this.#game.i18n.localize(
                     LOCALIZATION.SHOW_TOGGLE_AFK_BUTTON,
                 ),
@@ -75,7 +81,11 @@ export class Settings {
                 default: true,
                 type: Boolean,
             },
-        );
+        };
+
+        for (const [name, value] of Object.entries(settings)) {
+            this.#game.settings.register(MODULE_NAME, name, value);
+        }
     }
 
     get afkOverlayIconPath(): string {
@@ -96,6 +106,13 @@ export class Settings {
         return this.#game.settings.get(
             MODULE_NAME,
             SETTING.ALLOW_AFK_TOGGLE,
+        ) as boolean;
+    }
+
+    get showAFKStatusInChat(): boolean {
+        return this.#game.settings.get(
+            MODULE_NAME,
+            SETTING.SHOW_AFK_STATUS_IN_CHAT,
         ) as boolean;
     }
 

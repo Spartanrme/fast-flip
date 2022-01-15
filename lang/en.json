@@ -15,5 +15,9 @@
     "fast-flip.allow-afk-toggle": "Allow AFK Toggle",
     "fast-flip.allow-afk-toggle-hint": "Allow the AFK status to be toggled for player owned tokens",
     "fast-flip.afk-overlay-icon-path": "AFK Icon Path",
-    "fast-flip.afk-overlay-icon-path-hint": "Path to the image to use for the AFK status indicator on tokens"
+    "fast-flip.afk-overlay-icon-path-hint": "Path to the image to use for the AFK status indicator on tokens",
+    "fast-flip.show-afk-status-in-chat": "Show AFK Status in Chat",
+    "fast-flip.show-afk-status-in-chat-hint": "Send a chat message whenever a player's AFK status changes",
+    "fast-flip.chat-afk-message": "{name} has gone AFK.",
+    "fast-flip.chat-returned-message": "{name} has returned from being AFK."
 }
