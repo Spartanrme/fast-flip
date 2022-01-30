@@ -4,6 +4,7 @@ import { TileManager, TileMirror } from "./managers/TileManager";
 import { Settings } from "./Settings";
 import { getIcon } from "helpers";
 import * as hud from "./hud";
+import { SpeechManager } from "managers/SpeechManager";
 
 Hooks.once("init", () => {
     if (game instanceof Game) {
@@ -13,8 +14,9 @@ Hooks.once("init", () => {
         const tokenManager = new TokenManager(game, settings);
         const tileHUD = new hud.HUD<Tile>(game, hud.Name.TileHUD);
         const tileManager = new TileManager(game);
+        const speechManager = new SpeechManager(game, settings);
 
-        registerKeybindings(game, tokenManager, tileManager);
+        registerKeybindings(game, tokenManager, tileManager, speechManager);
         registerHUDButtons(
             settings,
             tokenHUD,
@@ -29,6 +31,7 @@ function registerKeybindings(
     game: Game,
     tokenManager: TokenManager,
     tileManager: TileManager,
+    speechManager: SpeechManager,
 ) {
     const horizontalFlip: () => void = async () => {
         await tokenManager.mirrorSelected(TokenMirror.HORIZONTAL);
@@ -67,6 +70,20 @@ function registerKeybindings(
         hint: game.i18n.localize(LOCALIZATION.TOGGLE_AFK_HINT),
         editable: [{ key: "KeyK", modifiers: ["SHIFT"] }],
         onDown: toggleAFK,
+        precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
+        restricted: false,
+        reservedModifiers: [],
+        repeat: false,
+    });
+
+    const onStartSpeaking: () => void = async () => { await speechManager.showSpeechBubble(); };
+    const onStopSpeaking = () => { speechManager.hideSpeechBubble(); };
+    game.keybindings.register(MODULE_NAME, LOCALIZATION.SHOW_SPEECH_BUBBLE_HOTKEY, {
+        name: LOCALIZATION.SHOW_SPEECH_BUBBLE_HOTKEY,
+        hint: game.i18n.localize(LOCALIZATION.SHOW_SPEECH_BUBBLE_HINT),
+        editable: [{ key: "KeyS", modifiers: ["ALT"] }],
+        onDown: onStartSpeaking,
+        onUp: onStopSpeaking,
         precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
         restricted: false,
         reservedModifiers: [],

@@ -7,6 +7,7 @@ enum SETTING {
     SHOW_MIRROR_BUTTONS_ON_HUD = "show-mirror-buttons-hud",
     SHOW_TOGGLE_AFK_BUTTON_ON_HUD = "show-toggle-afk-hud",
     AFK_OVERLAY_ICON_PATH = "afk-overlay-icon-path",
+    ALLOW_SPEECH_BUBBLES = "allow-speech-bubbles",
 }
 
 type SettingMap = {
@@ -23,6 +24,18 @@ export class Settings {
 
     #registerSettings() {
         const settings: SettingMap = {
+            [SETTING.ALLOW_SPEECH_BUBBLES]: {
+                name: this.#game.i18n.localize(
+                    LOCALIZATION.ALLOW_SPEECH_BUBBLES,
+                ),
+                hint: this.#game.i18n.localize(
+                    LOCALIZATION.ALLOW_SPEECH_BUBBLES_HINT,
+                ),
+                scope: "world",
+                config: true,
+                default: true,
+                type: Boolean,
+            },
             [SETTING.AFK_OVERLAY_ICON_PATH]: {
                 name: this.#game.i18n.localize(
                     LOCALIZATION.AFK_OVERLAY_ICON_PATH,
@@ -80,7 +93,7 @@ export class Settings {
                 config: true,
                 default: true,
                 type: Boolean,
-            },
+            }
         };
 
         for (const [name, value] of Object.entries(settings)) {
@@ -120,6 +133,13 @@ export class Settings {
         return this.#game.settings.get(
             MODULE_NAME,
             SETTING.SHOW_TOGGLE_AFK_BUTTON_ON_HUD,
+        ) as boolean;
+    }
+
+    get allowSpeechBubbles(): boolean {
+        return this.#game.settings.get(
+            MODULE_NAME,
+            SETTING.ALLOW_SPEECH_BUBBLES,
         ) as boolean;
     }
 }

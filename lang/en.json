@@ -19,5 +19,9 @@
     "fast-flip.show-afk-status-in-chat": "Show AFK Status in Chat",
     "fast-flip.show-afk-status-in-chat-hint": "Send a chat message whenever a player's AFK status changes",
     "fast-flip.chat-afk-message": "{name} has gone AFK.",
-    "fast-flip.chat-returned-message": "{name} has returned from being AFK."
+    "fast-flip.chat-returned-message": "{name} has returned from being AFK.",
+    "fast-flip.show-speech-bubble-hotkey": "Show Speech Bubble",
+    "fast-flip.show-speech-bubble-hint": "Displays a speech bubble attached to your selected token to all players.",
+    "fast-flip.allow-speech-bubbles": "Allow Speech Bubbles",
+    "fast-flip.allow-speech-bubbles-hint": "Allow speech bubbles to be displayed on tokens when the hotkey is activated."
 }

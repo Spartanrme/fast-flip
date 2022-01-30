@@ -22,4 +22,8 @@ export namespace LOCALIZATION {
     export const SHOW_AFK_STATUS_IN_CHAT_HINT = `${MODULE_NAME}.show-afk-status-in-chat-hint`;
     export const CHAT_AFK_MESSAGE = `${MODULE_NAME}.chat-afk-message`;
     export const CHAT_RETURNED_MESSAGE = `${MODULE_NAME}.chat-returned-message`;
+    export const SHOW_SPEECH_BUBBLE_HOTKEY = `${MODULE_NAME}.show-speech-bubble-hotkey`;
+    export const SHOW_SPEECH_BUBBLE_HINT = `${MODULE_NAME}.show-speech-bubble-hint`;
+    export const ALLOW_SPEECH_BUBBLES = `${MODULE_NAME}.allow-speech-bubbles`;
+    export const ALLOW_SPEECH_BUBBLES_HINT = `${MODULE_NAME}.allow-speech-bubbles-hint`;
 }
