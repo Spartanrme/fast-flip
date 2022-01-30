@@ -14,7 +14,9 @@
             "path": "lang/en.json"
         }
     ],
-    "scripts": ["mod.js"],
+    "scripts": [
+        "mod.js"
+    ],
     "url": "https://github.com/Mr-Byte/fast-flip",
     "download": "https://github.com/Mr-Byte/fast-flip/releases/download/v2.4.0/fast-flip.zip",
     "manifest": "https://raw.githubusercontent.com/Mr-Byte/fast-flip/main/module.json",

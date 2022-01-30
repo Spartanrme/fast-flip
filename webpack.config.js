@@ -1,5 +1,4 @@
 const TerserPlugin = require("terser-webpack-plugin");
-const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const ZipPlugin = require("zip-webpack-plugin");
@@ -18,7 +17,6 @@ module.exports = async env => {
     await rimrafAsync(outputPath);
 
     let plugins = [
-        new MiniCSSExtractPlugin(),
         new ESLintPlugin(),
         new CopyPlugin({
             patterns: [
@@ -50,18 +48,8 @@ module.exports = async env => {
                     test: /\.tsx?$/,
                     use: "ts-loader",
                     exclude: /node_modules/,
-                },
-                {
-                    test: /\.less$/,
-                    exclude: /node_modules/,
-                    sideEffects: true,
-                    use: [
-                        MiniCSSExtractPlugin.loader,
-                        "css-loader",
-                        "less-loader",
-                    ]
                 }
-            ],
+            ]
         },
         resolve: {
             modules: [
