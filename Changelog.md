@@ -1,3 +1,6 @@
+# v2.4.0
+* Add a setting and hotkey (default Alt+S) to show speech bubbles attached to the currently selected token
+
 # v2.3.0
 * Add a setting to enable/disable sending AFK status indicators in chat
 
