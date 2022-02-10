@@ -1,3 +1,6 @@
+# v2.4.1
+* Fix and issue where speech bubbles failed to render correctly when using Firefox
+
 # v2.4.0
 * Add a setting and hotkey (default Alt+S) to show speech bubbles attached to the currently selected token
 
