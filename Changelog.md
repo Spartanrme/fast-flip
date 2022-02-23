@@ -1,8 +1,11 @@
+# v2.5.0
+* Migrate speech bubbles to use the same template as Foundry's chat bubbles for consistency
+
 # v2.4.1
-* Fix and issue where speech bubbles failed to render correctly when using Firefox
+* Fix an issue where speech bubbles failed to render correctly when using Firefox
 
 # v2.4.0
-* Add a setting and hotkey (default Alt+S) to show speech bubbles attached to the currently selected token
+* Add a setting and hotkey (default `Alt+S`) to show speech bubbles attached to the currently selected token
 
 # v2.3.0
 * Add a setting to enable/disable sending AFK status indicators in chat
