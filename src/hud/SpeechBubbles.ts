@@ -42,7 +42,7 @@ export class SpeechBubbles {
     }
 
     #getMessageDimensions(message: string) {
-        const div = $(`<div class="chat-bubble" style="visibility:hidden">${message}</div>`);
+        const div = $(`<div class="chat-bubble" style="visibility:hidden; font-size: 3em">${message}</div>`);
         $('body').append(div);
         const dims = {
             width: div[0].clientWidth + 8,
@@ -59,6 +59,7 @@ export class SpeechBubbles {
 
     #setPosition(token: Token, html: JQuery, dimensions: { width: number, height: number }) {
         html.addClass("right");
+        html.css("font-size", "3em")
         const position = {
             height: dimensions.height,
             width: dimensions.width,
