@@ -23,5 +23,7 @@
     "fast-flip.show-speech-bubble-hotkey": "Show Speech Bubble",
     "fast-flip.show-speech-bubble-hint": "Displays a speech bubble attached to your selected token to all players.",
     "fast-flip.allow-speech-bubbles": "Allow Speech Bubbles",
-    "fast-flip.allow-speech-bubbles-hint": "Allow speech bubbles to be displayed on tokens when the hotkey is activated."
+    "fast-flip.allow-speech-bubbles-hint": "Allow speech bubbles to be displayed on tokens when the hotkey is activated.",
+    "fast-flip.speech-bubble-font-size": "Speech Bubble Font Size",
+    "fast-flip.speech-bubble-font-size-hint": "Font size of the names shown in speech bubbles in px units."
 }

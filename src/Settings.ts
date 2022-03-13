@@ -8,6 +8,7 @@ enum SETTING {
     SHOW_TOGGLE_AFK_BUTTON_ON_HUD = "show-toggle-afk-hud",
     AFK_OVERLAY_ICON_PATH = "afk-overlay-icon-path",
     ALLOW_SPEECH_BUBBLES = "allow-speech-bubbles",
+    SPEECH_BUBBLE_FONT_SIZE = "speech-bubble-font-size",
 }
 
 type SettingMap = {
@@ -35,6 +36,23 @@ export class Settings {
                 config: true,
                 default: true,
                 type: Boolean,
+            },
+            [SETTING.SPEECH_BUBBLE_FONT_SIZE]: {
+                name: this.#game.i18n.localize(
+                    LOCALIZATION.SPEECH_BUBBLE_FONT_SIZE,
+                ),
+                hint: this.#game.i18n.localize(
+                    LOCALIZATION.SPEECH_BUBBLE_FONT_SIZE_HINT,
+                ),
+                scope: "client",
+                config: true,
+                default: 14,
+                type: Number,
+                range: {
+                    min: 14,
+                    max: 42,
+                    step: 1,
+                }
             },
             [SETTING.AFK_OVERLAY_ICON_PATH]: {
                 name: this.#game.i18n.localize(
@@ -141,5 +159,12 @@ export class Settings {
             MODULE_NAME,
             SETTING.ALLOW_SPEECH_BUBBLES,
         ) as boolean;
+    }
+
+    get speechBubbleFontSize(): number {
+        return this.#game.settings.get(
+            MODULE_NAME,
+            SETTING.SPEECH_BUBBLE_FONT_SIZE
+        ) as number;
     }
 }

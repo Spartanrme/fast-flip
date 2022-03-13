@@ -26,4 +26,6 @@ export namespace LOCALIZATION {
     export const SHOW_SPEECH_BUBBLE_HINT = `${MODULE_NAME}.show-speech-bubble-hint`;
     export const ALLOW_SPEECH_BUBBLES = `${MODULE_NAME}.allow-speech-bubbles`;
     export const ALLOW_SPEECH_BUBBLES_HINT = `${MODULE_NAME}.allow-speech-bubbles-hint`;
+    export const SPEECH_BUBBLE_FONT_SIZE = `${MODULE_NAME}.speech-bubble-font-size`;
+    export const SPEECH_BUBBLE_FONT_SIZE_HINT = `${MODULE_NAME}.speech-bubble-font-size-hint`;
 }

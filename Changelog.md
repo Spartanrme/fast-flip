@@ -1,3 +1,7 @@
+# v2.6.0
+* Add a client-side setting to allow players to adjust the font size of speech bubbles
+* Cleanup orphaned speech bubbles caused by the client losing focus while the shortcut key is active
+
 # v2.5.0
 * Migrate speech bubbles to use the same template as Foundry's chat bubbles for consistency
 

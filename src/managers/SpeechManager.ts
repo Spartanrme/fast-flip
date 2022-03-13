@@ -60,7 +60,11 @@ export class SpeechManager {
     }
 
     #onCanvasReady() {
-        this.#speechBubbles = new SpeechBubbles();
+        this.#speechBubbles = new SpeechBubbles(
+            this.#settings,
+            this.#game.keyboard!,
+            this.#game.keybindings
+        );
     }
 
     async #onSocketMessage(data: SocketMessage) {
