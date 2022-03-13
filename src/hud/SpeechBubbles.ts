@@ -36,8 +36,6 @@ export class SpeechBubbles {
             const keys = bindings ? [bindings.key, ...bindings.modifiers ?? []] : [];
             const keySet = new Set(keys);
             const downKeys = normalizeKeys(this.#keyboard.downKeys);
-            console.log(keySet);
-            console.log(downKeys);
 
             if (!keySet.isSubset(downKeys)) {
                 this.hide(token);
