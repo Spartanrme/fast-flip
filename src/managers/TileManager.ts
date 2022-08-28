@@ -69,23 +69,14 @@ export class TileManager {
     }
 
     get #allTiles(): Tile[] {
-        return [
-            ...(this.#game.canvas.background?.tiles ?? []),
-            ...(this.#game.canvas.foreground?.tiles ?? []),
-        ];
+        return (this.#game.canvas as any).tiles.tiles ?? [];
     }
 
     get #controlledTiles(): Tile[] {
-        return [
-            ...(this.#game.canvas.background?.controlled ?? []),
-            ...(this.#game.canvas.foreground?.controlled ?? []),
-        ];
+        return (this.#game.canvas as any).tiles.controlled ?? [];
     }
 
     #findTile(id: string): Tile | undefined {
-        return (
-            this.#game.canvas.background?.get(id) ??
-            this.#game.canvas.foreground?.get(id)
-        );
+        return (this.#game.canvas as any).tiles.get(id);
     }
 }

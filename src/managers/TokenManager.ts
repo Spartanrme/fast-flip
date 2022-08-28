@@ -2,8 +2,8 @@ import { LOCALIZATION, MODULE_NAME } from "../constants";
 import { Settings } from "../Settings";
 
 export const enum TokenMirror {
-    HORIZONTAL = "mirrorX",
-    VERTICAL = "mirrorY",
+    HORIZONTAL = "scaleX",
+    VERTICAL = "scaleY",
 }
 
 const AFK_STATE_KEY = "afk-state";
@@ -16,6 +16,8 @@ export class TokenManager {
     constructor(game: Game, settings: Settings) {
         this.#game = game;
         this.#settings = settings;
+
+        Hooks.on("updateToken", this.#onUpdateToken.bind(this));
     }
 
     async mirrorSelected(tokenMirrorDirection: TokenMirror) {
@@ -24,8 +26,10 @@ export class TokenManager {
                 continue;
             }
 
+            const flipMirror = -((token.document as any).texture[tokenMirrorDirection]);
+
             await token.document.update({
-                [tokenMirrorDirection]: !token.data[tokenMirrorDirection],
+                [`texture.${tokenMirrorDirection}`]: flipMirror,
             });
         }
     }
@@ -69,7 +73,7 @@ export class TokenManager {
                         ),
                     });
             } else {
-                const previousOverlayEffect = token.data.overlayEffect;
+                const previousOverlayEffect = (token.document as any).overlayEffect;
                 await token.document.setFlag(
                     MODULE_NAME,
                     PREVIOUS_OVERLAY_STATE_FFECT_KEY,
@@ -90,10 +94,23 @@ export class TokenManager {
                         ),
                     });
             }
+
+            // await token.drawEffects();
         }
     }
 
     get #controlledTokens(): Token[] {
         return this.#game.canvas.tokens?.controlled ?? [];
     }
+
+    async #onUpdateToken(_: unknown, update: foundry.data.TokenData) {
+        if (update._id && update.overlayEffect !== undefined) {
+            const token = (this.#game.canvas.tokens as any).get(update._id);
+
+            if (token) {
+                await token.drawEffects();
+            }
+        }
+    }
+
 }
