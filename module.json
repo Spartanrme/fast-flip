@@ -1,12 +1,13 @@
 {
-    "name": "fast-flip",
+    "id": "fast-flip",
     "title": "Fast Flip!",
     "description": "Adds several useful token and tile utilities. Flip tokens & tiles, toggle tokens as AFK, show which token is speaking.",
     "author": "MrByte",
     "version": "3.0.0",
     "socket": true,
-    "minimumCoreVersion": "10",
-    "compatibleCoreVersion": "10",
+    "compatibility": {
+        "minimum": 10
+    },
     "languages": [
         {
             "lang": "en",
