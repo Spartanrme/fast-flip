@@ -1,3 +1,6 @@
+# v3.0.0
+* V10 compatible (not backwards compatible with V9)
+
 # v2.6.0
 * Add a client-side setting to allow players to adjust the font size of speech bubbles
 * Cleanup orphaned speech bubbles caused by the client losing focus while the shortcut key is active
