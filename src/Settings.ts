@@ -2,6 +2,7 @@ import { getIcon } from "./helpers";
 import { LOCALIZATION, MODULE_NAME } from "./constants";
 
 enum SETTING {
+    ANIMATION_DURATION = "animation-duration",
     ALLOW_AFK_TOGGLE = "allow-afk-toggle",
     SHOW_AFK_STATUS_IN_CHAT = "show-afk-status-in-chat",
     SHOW_MIRROR_BUTTONS_ON_HUD = "show-mirror-buttons-hud",
@@ -12,7 +13,7 @@ enum SETTING {
 }
 
 type SettingMap = {
-    [K in SETTING]: ClientSettings.PartialSetting<string | boolean | number>;
+    [K in SETTING]: ClientSettings.PartialSettingConfig<string | boolean | number>;
 };
 
 export class Settings {
@@ -25,6 +26,23 @@ export class Settings {
 
     #registerSettings() {
         const settings: SettingMap = {
+            [SETTING.ANIMATION_DURATION]: {
+                name: this.#game.i18n.localize(
+                    LOCALIZATION.ANIMATION_DURATION,
+                ),
+                hint: this.#game.i18n.localize(
+                    LOCALIZATION.ANIMATION_DURATION_HINT,
+                ),
+                scope: "world" as const,
+                config: true,
+                default: 0.1,
+                type: Number,
+                range: {
+                    min: 0,
+                    max: 1.0,
+                    step: 0.1
+                }
+            },
             [SETTING.ALLOW_SPEECH_BUBBLES]: {
                 name: this.#game.i18n.localize(
                     LOCALIZATION.ALLOW_SPEECH_BUBBLES,
@@ -32,7 +50,7 @@ export class Settings {
                 hint: this.#game.i18n.localize(
                     LOCALIZATION.ALLOW_SPEECH_BUBBLES_HINT,
                 ),
-                scope: "world",
+                scope: "world" as const,
                 config: true,
                 default: true,
                 type: Boolean,
@@ -44,7 +62,7 @@ export class Settings {
                 hint: this.#game.i18n.localize(
                     LOCALIZATION.SPEECH_BUBBLE_FONT_SIZE_HINT,
                 ),
-                scope: "client",
+                scope: "client" as const,
                 config: true,
                 default: 14,
                 type: Number,
@@ -61,7 +79,7 @@ export class Settings {
                 hint: this.#game.i18n.localize(
                     LOCALIZATION.AFK_OVERLAY_ICON_PATH_HINT,
                 ),
-                scope: "world",
+                scope: "world" as const,
                 config: true,
                 default: getIcon("afk"),
                 filePicker: "imagevideo",
@@ -71,7 +89,7 @@ export class Settings {
                 hint: this.#game.i18n.localize(
                     LOCALIZATION.ALLOW_AFK_TOGGLE_HINT,
                 ),
-                scope: "world",
+                scope: "world" as const,
                 config: true,
                 default: true,
                 type: Boolean,
@@ -83,7 +101,7 @@ export class Settings {
                 hint: this.#game.i18n.localize(
                     LOCALIZATION.SHOW_AFK_STATUS_IN_CHAT_HINT,
                 ),
-                scope: "world",
+                scope: "world" as const,
                 config: true,
                 default: true,
                 type: Boolean,
@@ -95,7 +113,7 @@ export class Settings {
                 hint: this.#game.i18n.localize(
                     LOCALIZATION.SHOW_MIRROR_BUTTONS_HINT,
                 ),
-                scope: "client",
+                scope: "client" as const,
                 config: true,
                 default: true,
                 type: Boolean,
@@ -107,7 +125,7 @@ export class Settings {
                 hint: this.#game.i18n.localize(
                     LOCALIZATION.SHOW_TOGGLE_AFK_HINT,
                 ),
-                scope: "client",
+                scope: "client" as const,
                 config: true,
                 default: true,
                 type: Boolean,
@@ -117,6 +135,13 @@ export class Settings {
         for (const [name, value] of Object.entries(settings)) {
             this.#game.settings.register(MODULE_NAME, name, value);
         }
+    }
+
+    get animationDuration(): number {
+        return this.#game.settings.get(
+            MODULE_NAME,
+            SETTING.ANIMATION_DURATION,
+        ) as number * 1000;
     }
 
     get afkOverlayIconPath(): string {

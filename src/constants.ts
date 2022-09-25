@@ -28,4 +28,6 @@ export namespace LOCALIZATION {
     export const ALLOW_SPEECH_BUBBLES_HINT = `${MODULE_NAME}.allow-speech-bubbles-hint`;
     export const SPEECH_BUBBLE_FONT_SIZE = `${MODULE_NAME}.speech-bubble-font-size`;
     export const SPEECH_BUBBLE_FONT_SIZE_HINT = `${MODULE_NAME}.speech-bubble-font-size-hint`;
+    export const ANIMATION_DURATION = `${MODULE_NAME}.animation-duration`;
+    export const ANIMATION_DURATION_HINT = `${MODULE_NAME}.animation-duration-hint`;
 }

@@ -25,5 +25,7 @@
     "fast-flip.allow-speech-bubbles": "Allow Speech Bubbles",
     "fast-flip.allow-speech-bubbles-hint": "Allow speech bubbles to be displayed on tokens when the hotkey is activated.",
     "fast-flip.speech-bubble-font-size": "Speech Bubble Font Size",
-    "fast-flip.speech-bubble-font-size-hint": "Font size of the names shown in speech bubbles in px units."
+    "fast-flip.speech-bubble-font-size-hint": "Font size of the names shown in speech bubbles in px units.",
+    "fast-flip.animation-duration": "Animation Duration",
+    "fast-flip.animation-duration-hint": "Duration of the token flip animation in seconds (0 disables animations)."
 }

@@ -12,6 +12,7 @@ const PREVIOUS_OVERLAY_STATE_FFECT_KEY = "previous-overlay-effect";
 export class TokenManager {
     readonly #game: Game;
     readonly #settings: Settings;
+    readonly #animatingTokens: Set<string> = new Set();
 
     constructor(game: Game, settings: Settings) {
         this.#game = game;
@@ -26,12 +27,40 @@ export class TokenManager {
                 continue;
             }
 
-            const flipMirror = -((token.document as any).texture[tokenMirrorDirection]);
+            if (this.#markToken(token.id)) {
+                continue;
+            }
 
-            await token.document.update({
-                [`texture.${tokenMirrorDirection}`]: flipMirror,
-            });
+            const flipMirror = -((token.document as any).texture[tokenMirrorDirection]);
+            const animationDuration = this.#settings.animationDuration;
+
+            await token.document.update(
+                {
+                    [`texture.${tokenMirrorDirection}`]: flipMirror,
+                },
+                {
+                    //@ts-ignore
+                    animate: animationDuration !== 0,
+                    //@ts-ignore
+                    animation: {
+                        duration: animationDuration
+                    }
+                }
+            );
         }
+    }
+
+    #markToken(id: string): boolean {
+        if (this.#animatingTokens.has(id)) {
+            return true;
+        }
+
+        this.#animatingTokens.add(id);
+        setTimeout(() => {
+            this.#animatingTokens.delete(id);
+        }, this.#settings.animationDuration);
+
+        return false;
     }
 
     async toggleAFK() {
