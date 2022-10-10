@@ -34,6 +34,11 @@
             "lang": "pt-BR",
             "name": "Português",
             "path": "lang/pt.json"
+        },
+        {
+            "lang": "zh-Hans",
+            "name": "中文（简体）",
+            "path": "lang/zh_Hans.json"
         }
     ],
     "scripts": [
