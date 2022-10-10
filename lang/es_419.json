@@ -1,1 +1,5 @@
-{}
+{
+    "fast-flip.speech-bubble-font-size": "Tamaño de fuente de la burbuja de diálogo",
+    "fast-flip.speech-bubble-font-size-hint": "Tamaño de fuente de los nombres mostrados en la burbuja de diálogo en unidad de pixeles.",
+    "fast-flip.animation-duration": "Duración de la animación"
+}
