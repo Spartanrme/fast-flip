@@ -29,8 +29,6 @@ export class TokenManager {
 
             //@ts-ignore
             if (token._animation) {
-                //@ts-ignore
-                console.log(token._animation);
                 continue;
             }
 
@@ -110,7 +108,6 @@ export class TokenManager {
     }
 
     async #onDrawToken(token: Token) {
-        console.log("Drawing token");
         if (!token) {
             return;
         }
