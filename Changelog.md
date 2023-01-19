@@ -1,3 +1,8 @@
+# v3.2.0
+
+- Draw mirroring buttons in horizontal row on HUD
+- Fix issues with the AFK overlay messing with status effect icons
+
 # v3.1.0
 
 - Add the ability to configure token flipping animation durations

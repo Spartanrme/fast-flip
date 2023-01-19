@@ -1,5 +1,9 @@
-export interface ButtonProps<T extends PlaceableObject> {
+export interface ButtonGroupProps<T extends PlaceableObject> {
     side: "left" | "right";
+    buttons: ButtonProps<T>[];
+}
+
+export interface ButtonProps<T extends PlaceableObject> {
     title: string;
     icon: string;
     onClick: (object: T) => void | Promise<void>;
@@ -23,41 +27,61 @@ type Brand<T> = T extends Tile
 export class HUD<T extends PlaceableObject> {
     readonly __brand!: Brand<T>;
     readonly #game: Game;
-    readonly #buttons: Map<string, ButtonProps<T>>;
+    readonly #buttonsGroups: ButtonGroupProps<T>[];
 
     constructor(game: Game, name: Name) {
         this.#game = game;
-        this.#buttons = new Map();
+        this.#buttonsGroups = [];
 
         Hooks.on(`render${name}`, this.#render.bind(this));
     }
 
-    registerButton(id: string, props: ButtonProps<T>) {
-        this.#buttons.set(id, props);
+    registerButtonGroup(props: ButtonGroupProps<T>) {
+        this.#buttonsGroups.push(props);
     }
 
     #render(hud: BasePlaceableHUD, html: JQuery) {
-        for (const [_, props] of this.#buttons) {
-            const shouldShow = props.shouldShow?.(hud.object as T) ?? true;
+        for (const groupProps of this.#buttonsGroups) {
+            const shouldShow = groupProps.buttons.some(button => button.shouldShow?.(hud.object as T) ?? true);
 
             if (shouldShow) {
-                const title = this.#game.i18n.localize(props.title);
-                const button = document.createElement("div");
-                button.classList.add("control-icon");
-                button.onclick = () => props.onClick(hud.object as T);
-                button.title = title;
+                const group = document.createElement("div");
 
-                const img = document.createElement("img");
-                img.title = title;
-                img.alt = title;
-                img.src = props.icon;
-                img.width = 36;
-                img.height = 36;
+                if (groupProps.buttons.length > 1) {
+                    group.style.display = "flex";
+                    group.style.flexDirection = "horizontal";
+                    group.style.marginRight = "40px";
+                    group.style.paddingRight = "2px";
+                }
 
-                button.appendChild(img);
+                for (const props of groupProps.buttons) {
+                    const title = this.#game.i18n.localize(props.title);
+                    const button = document.createElement("div");
+                    button.classList.add("control-icon");
+                    button.onclick = () => props.onClick(hud.object as T);
+                    button.title = title;
 
-                html.find(`div.${props.side}`).append(button);
+                    if (groupProps.side === "left") {
+                        button.style.marginRight = "8px";
+                    }
+
+                    button.style.marginTop = "8px";
+                    button.style.height = "40px";
+
+                    const img = document.createElement("img");
+                    img.title = title;
+                    img.alt = title;
+                    img.src = props.icon;
+                    img.width = 36;
+                    img.height = 36;
+
+                    button.appendChild(img);
+                    group.append(button);
+                }
+
+                html.find(`div.${groupProps.side}`).append(group);
             }
         }
     }
 }
+

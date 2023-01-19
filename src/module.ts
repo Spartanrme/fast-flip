@@ -102,47 +102,53 @@ function registerHUDButtons(
     const mirrorVerticalIcon = getIcon("mirror-vertical");
     const toggleAFKIcon = getIcon("toggle-afk");
 
-    tokenHUD.registerButton(`${MODULE_NAME}.mirror-horizontal`, {
+    tokenHUD.registerButtonGroup({
         side: "left",
-        title: LOCALIZATION.MIRROR_HORIZONTAL_BUTTON,
-        icon: mirrorHorizontalIcon,
-        onClick: () => void tokenManager.mirrorSelected(TokenMirror.HORIZONTAL),
-        shouldShow: (token) => settings.showMirrorButtons && token.isOwner,
+        buttons: [
+            {
+                title: LOCALIZATION.MIRROR_HORIZONTAL_BUTTON,
+                icon: mirrorHorizontalIcon,
+                onClick: () => void tokenManager.mirrorSelected(TokenMirror.HORIZONTAL),
+                shouldShow: (token) => settings.showMirrorButtons && token.isOwner,
+            },
+            {
+                title: LOCALIZATION.MIRROR_VERTICAL_BUTTON,
+                icon: mirrorVerticalIcon,
+                onClick: () => void tokenManager.mirrorSelected(TokenMirror.VERTICAL),
+                shouldShow: (token) => settings.showMirrorButtons && token.isOwner,
+            }
+        ]
     });
 
-    tokenHUD.registerButton(`${MODULE_NAME}.mirror-vertical`, {
-        side: "left",
-        title: LOCALIZATION.MIRROR_VERTICAL_BUTTON,
-        icon: mirrorVerticalIcon,
-        onClick: () => void tokenManager.mirrorSelected(TokenMirror.VERTICAL),
-        shouldShow: (token) => settings.showMirrorButtons && token.isOwner,
-    });
-
-    tokenHUD.registerButton(`${MODULE_NAME}.toggle-afk`, {
+    tokenHUD.registerButtonGroup({
         side: "right",
-        title: LOCALIZATION.TOGGLE_AFK_BUTTON,
-        icon: toggleAFKIcon,
-        onClick: () => void tokenManager.toggleAFK(),
-        shouldShow: (token) =>
-            settings.allowAFKToggle &&
-            settings.showToggleAFKButton &&
-            token.isOwner &&
-            (token.actor?.hasPlayerOwner ?? false),
+        buttons: [{
+            title: LOCALIZATION.TOGGLE_AFK_BUTTON,
+            icon: toggleAFKIcon,
+            onClick: () => void tokenManager.toggleAFK(),
+            shouldShow: (token) =>
+                settings.allowAFKToggle &&
+                settings.showToggleAFKButton &&
+                token.isOwner &&
+                (token.actor?.hasPlayerOwner ?? false),
+        }]
     });
 
-    tileHUD.registerButton(`${MODULE_NAME}.mirror-horizontal`, {
+    tileHUD.registerButtonGroup({
         side: "left",
-        title: LOCALIZATION.MIRROR_HORIZONTAL_BUTTON,
-        icon: mirrorHorizontalIcon,
-        onClick: () =>
-            void tileManager.mirrorSelectedTiles(TileMirror.HORIZONTAL),
-    });
-
-    tileHUD.registerButton(`${MODULE_NAME}.mirror-vertical`, {
-        side: "left",
-        title: LOCALIZATION.MIRROR_VERTICAL_BUTTON,
-        icon: mirrorVerticalIcon,
-        onClick: () =>
-            void tileManager.mirrorSelectedTiles(TileMirror.VERTICAL),
+        buttons: [
+            {
+                title: LOCALIZATION.MIRROR_HORIZONTAL_BUTTON,
+                icon: mirrorHorizontalIcon,
+                onClick: () =>
+                    void tileManager.mirrorSelectedTiles(TileMirror.HORIZONTAL),
+            },
+            {
+                title: LOCALIZATION.MIRROR_VERTICAL_BUTTON,
+                icon: mirrorVerticalIcon,
+                onClick: () =>
+                    void tileManager.mirrorSelectedTiles(TileMirror.VERTICAL),
+            }
+        ]
     });
 }
