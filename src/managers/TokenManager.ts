@@ -12,7 +12,6 @@ const PREVIOUS_OVERLAY_STATE_FFECT_KEY = "previous-overlay-effect";
 export class TokenManager {
     readonly #game: Game;
     readonly #settings: Settings;
-    readonly #animatingTokens: Set<string> = new Set();
 
     constructor(game: Game, settings: Settings) {
         this.#game = game;
@@ -27,7 +26,8 @@ export class TokenManager {
                 continue;
             }
 
-            if (this.#markToken(token.id)) {
+            //@ts-ignore
+            if (token._animation) {
                 continue;
             }
 
@@ -48,19 +48,6 @@ export class TokenManager {
                 }
             );
         }
-    }
-
-    #markToken(id: string): boolean {
-        if (this.#animatingTokens.has(id)) {
-            return true;
-        }
-
-        this.#animatingTokens.add(id);
-        setTimeout(() => {
-            this.#animatingTokens.delete(id);
-        }, this.#settings.animationDuration);
-
-        return false;
     }
 
     async toggleAFK() {
@@ -123,8 +110,6 @@ export class TokenManager {
                         ),
                     });
             }
-
-            // await token.drawEffects();
         }
     }
 
