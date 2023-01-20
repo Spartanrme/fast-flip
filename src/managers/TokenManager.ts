@@ -116,11 +116,6 @@ export class TokenManager {
             return;
         }
 
-        const overlay = (token.getChildByName(AFKOverlay.NAME, true)) as AFKOverlay | undefined;
-        if (!overlay) {
-            new AFKOverlay(this.#settings, token);
-        }
-
         await this.#updateTokenAFKOverlay(token);
     }
 
@@ -138,11 +133,8 @@ export class TokenManager {
     }
 
     async #updateTokenAFKOverlay(token: Token) {
-        const overlay = (token.getChildByName(AFKOverlay.NAME, true)) as AFKOverlay | undefined;
-
-        if (!overlay) {
-            return;
-        }
+        let overlay = token.getChildByName(AFKOverlay.NAME, true) as AFKOverlay | undefined
+            ?? new AFKOverlay(this.#settings, token);
 
         const isAFK = token.document.getFlag(MODULE_NAME, AFK_STATE_KEY);
         if (!isAFK) {

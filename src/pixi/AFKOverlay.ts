@@ -33,8 +33,12 @@ export class AFKOverlay extends PIXI.Container {
 
         this.#sprite = new PIXI.Sprite(texture);
         this.#sprite.position = new PIXI.Point(0, 0);
-        this.#sprite.width = token.width;
-        this.#sprite.height = token.width; // NOTE: Not a bug, setting it to height was weird.
+        this.#sprite.anchor.set(0.5);
+
+        const { width, height } = token.bounds;
+        this.#sprite.width = width * 0.8;
+        this.#sprite.height = height * 0.8;
+        this.#sprite.position.set(width / 2, height / 2);
 
         this.addChild(this.#sprite);
     }

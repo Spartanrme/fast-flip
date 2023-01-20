@@ -1,3 +1,9 @@
+# v3.2.1
+
+- Fix issue where AFK toggles would not display for tokens that had their player
+  permissions updated
+- Fix an issue where the AFK overlay was sometimes very tiny
+
 # v3.2.0
 
 - Draw mirroring buttons in horizontal row on HUD
