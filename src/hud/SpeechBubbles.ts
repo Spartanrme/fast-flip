@@ -1,17 +1,17 @@
 import { LOCALIZATION, MODULE_NAME } from "../constants";
 import { Settings } from "../Settings";
 
+export enum SpeechBubbleShowType {
+    Keybind,
+    Socket,
+}
+
 export class SpeechBubbles {
     readonly #template: string;
     readonly #settings: Settings;
-    readonly #keyboard: KeyboardManager;
-    readonly #keybindings: ClientKeybindings;
-    #keyClearInterval: number | undefined;
 
-    constructor(settings: Settings, keyboard: KeyboardManager, keybindings: ClientKeybindings) {
+    constructor(settings: Settings) {
         this.#settings = settings;
-        this.#keyboard = keyboard;
-        this.#keybindings = keybindings;
         this.#template = "templates/hud/chat-bubble.html";
     }
 
@@ -26,27 +26,10 @@ export class SpeechBubbles {
         this.#setPosition(token, html, dimensions);
         this.container.append(html);
 
-
-        if (!this.#keyClearInterval) {
-            clearInterval(this.#keyClearInterval);
-        }
-
-        this.#keyClearInterval = setInterval(() => {
-            const [bindings] = this.#keybindings.bindings?.get(`${MODULE_NAME}.${LOCALIZATION.SHOW_SPEECH_BUBBLE_HOTKEY}`) ?? [];
-            const keys = bindings ? [bindings.key, ...bindings.modifiers ?? []] : [];
-            const keySet = new Set(keys);
-            const downKeys = normalizeKeys(this.#keyboard.downKeys);
-
-            if (!keySet.isSubset(downKeys)) {
-                this.hide(token);
-            }
-
-        }, 250) as unknown as number;
-
-        return await new Promise<void>(resolve =>
+        return await new Promise<void>((resolve) =>
             html.fadeIn(250, () => {
-                resolve()
-            })
+                resolve();
+            }),
         );
     }
 
@@ -56,23 +39,25 @@ export class SpeechBubbles {
             return;
         }
 
-        return new Promise<void>(resolve => {
-            clearInterval(this.#keyClearInterval);
-
+        return new Promise<void>((resolve) => {
             existing.fadeOut(100, () => {
                 existing.remove();
                 resolve();
             });
-        })
+        });
     }
 
-    async #renderHTML(data: { token: Token, message: string }) {
+    async #renderHTML(data: { token: Token; message: string }) {
         return renderTemplate(this.#template, data);
     }
 
     #getMessageDimensions(message: string) {
-        const div = $(`<div class="chat-bubble" style="visibility:hidden; font-size: ${this.#settings.speechBubbleFontSize}px">${message}</div>`);
-        $('body').append(div);
+        const div = $(
+            `<div class="chat-bubble" style="visibility:hidden; font-size: ${
+                this.#settings.speechBubbleFontSize
+            }px">${message}</div>`,
+        );
+        $("body").append(div);
         const dims = {
             width: div[0].clientWidth + 8,
             height: div[0].clientHeight,
@@ -86,9 +71,13 @@ export class SpeechBubbles {
         return dims;
     }
 
-    #setPosition(token: Token, html: JQuery, dimensions: { width: number, height: number }) {
+    #setPosition(
+        token: Token,
+        html: JQuery,
+        dimensions: { width: number; height: number },
+    ) {
         html.addClass("right");
-        html.css("font-size", `${this.#settings.speechBubbleFontSize}px`)
+        html.css("font-size", `${this.#settings.speechBubbleFontSize}px`);
         const position = {
             height: dimensions.height,
             width: dimensions.width,
@@ -98,29 +87,4 @@ export class SpeechBubbles {
 
         html.css(position);
     }
-}
-
-type AltKeys = (typeof KeyboardManager.MODIFIER_CODES.Alt)[number];
-type CtrlKeys = (typeof KeyboardManager.MODIFIER_CODES.Control)[number];
-type ShiftKeys = (typeof KeyboardManager.MODIFIER_CODES.Shift)[number];
-
-function normalizeKeys(keys: Set<string>): Set<string> {
-    const normalizedKeys = new Set<string>();
-
-    for (const key of keys) {
-        if (KeyboardManager.MODIFIER_CODES.Alt.indexOf(key as AltKeys) >= 0) {
-            normalizedKeys.add(KeyboardManager.MODIFIER_KEYS.ALT);
-        }
-        else if (KeyboardManager.MODIFIER_CODES.Control.indexOf(key as CtrlKeys) >= 0) {
-            normalizedKeys.add(KeyboardManager.MODIFIER_KEYS.CONTROL);
-        }
-        else if (KeyboardManager.MODIFIER_CODES.Shift.indexOf(key as ShiftKeys) >= 0) {
-            normalizedKeys.add(KeyboardManager.MODIFIER_KEYS.SHIFT);
-        }
-        else {
-            normalizedKeys.add(key)
-        }
-    }
-
-    return normalizedKeys;
 }

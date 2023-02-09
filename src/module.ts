@@ -34,7 +34,7 @@ function registerKeybindings(
     speechManager: SpeechManager,
 ) {
     const horizontalFlip: () => void = async () => {
-        await tokenManager.mirrorSelected(TokenMirror.HORIZONTAL);
+        tokenManager.mirrorSelected(TokenMirror.HORIZONTAL);
         await tileManager.mirrorSelectedTiles(TileMirror.HORIZONTAL);
     };
 
@@ -50,7 +50,7 @@ function registerKeybindings(
     });
 
     const verticalFlip: () => void = async () => {
-        await tokenManager.mirrorSelected(TokenMirror.VERTICAL);
+        tokenManager.mirrorSelected(TokenMirror.VERTICAL);
         await tileManager.mirrorSelectedTiles(TileMirror.VERTICAL);
     };
     game.keybindings.register(MODULE_NAME, "verticalFlip", {

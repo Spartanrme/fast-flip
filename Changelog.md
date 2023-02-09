@@ -1,3 +1,6 @@
+# v3.2.2
+- Fix an issue where speech bubbles would disappear after a short period for remote clients.
+
 # v3.2.1
 
 - Fix issue where AFK toggles would not display for tokens that had their player

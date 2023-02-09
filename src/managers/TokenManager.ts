@@ -21,33 +21,34 @@ export class TokenManager {
         Hooks.on("drawToken", this.#onDrawToken.bind(this));
     }
 
-    async mirrorSelected(tokenMirrorDirection: TokenMirror) {
+    mirrorSelected(tokenMirrorDirection: TokenMirror) {
         for (const token of this.#controlledTokens) {
             if (!token.isOwner) {
                 continue;
             }
 
-            //@ts-ignore
-            if (token._animation) {
-                continue;
-            }
+            (async () => {
+                // NOTE: Guard token flipping with an await on any currently running animations.
+                //@ts-ignore
+                await token._animation;
 
-            const flipMirror = -((token.document as any).texture[tokenMirrorDirection]);
-            const animationDuration = this.#settings.animationDuration;
+                const flipMirror = -((token.document as any).texture[tokenMirrorDirection]);
+                const animationDuration = this.#settings.animationDuration;
 
-            await token.document.update(
-                {
-                    [`texture.${tokenMirrorDirection}`]: flipMirror,
-                },
-                {
-                    //@ts-ignore
-                    animate: animationDuration !== 0,
-                    //@ts-ignore
-                    animation: {
-                        duration: animationDuration
+                await token.document.update(
+                    {
+                        [`texture.${tokenMirrorDirection}`]: flipMirror,
+                    },
+                    {
+                        //@ts-ignore
+                        animate: animationDuration !== 0,
+                        //@ts-ignore
+                        animation: {
+                            duration: animationDuration
+                        }
                     }
-                }
-            );
+                );
+            })();
         }
     }
 

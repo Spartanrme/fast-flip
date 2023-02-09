@@ -7,7 +7,7 @@
             "name": "MrByte"
         }
     ],
-    "version": "3.2.1",
+    "version": "3.2.2",
     "socket": true,
     "compatibility": {
         "minimum": 10,
@@ -54,7 +54,7 @@
         "mod.js"
     ],
     "url": "https://github.com/Mr-Byte/fast-flip",
-    "download": "https://github.com/Mr-Byte/fast-flip/releases/download/v3.2.1/fast-flip.zip",
+    "download": "https://github.com/Mr-Byte/fast-flip/releases/download/v3.2.2/fast-flip.zip",
     "manifest": "https://raw.githubusercontent.com/Mr-Byte/fast-flip/V10/module.json",
     "bugs": "https://github.com/Mr-Byte/fast-flip/issues",
     "allowBugReporter": true,
