@@ -1,3 +1,6 @@
+# NOTICE
+I no longer actively maintain this project and have no plans to update it for V12 and beyond.
+
 # Fast Flip!
 Foundry VTT addon that allows for quick horizontal and vertical mirroring of selected tokens or tiles.
 
