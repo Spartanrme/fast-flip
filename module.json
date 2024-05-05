@@ -25,29 +25,9 @@
             "path": "lang/de.json"
         },
         {
-            "lang": "es",
-            "name": "Español",
-            "path": "lang/es.json"
-        },
-        {
-            "lang": "ja",
-            "name": "日本語",
-            "path": "lang/ja.json"
-        },
-        {
             "lang": "pt-BR",
             "name": "Português",
             "path": "lang/pt.json"
-        },
-        {
-            "lang": "zh-Hans",
-            "name": "中文（简体）",
-            "path": "lang/zh_Hans.json"
-        },
-        {
-            "lang": "es-419",
-            "name": "Español (Latinoamérica)",
-            "path": "lang/es_419.json"
         }
     ],
     "scripts": [
