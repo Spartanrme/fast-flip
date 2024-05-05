@@ -1,5 +1,6 @@
-# Fast Flip!
-Foundry VTT addon that allows for quick horizontal and vertical mirroring of selected tokens or tiles.
+# Fast Flip! Token Tools
+
+Foundry VTT addon that introduces a set of useful hotkeys and features for tokens.
 
 Allows players to flip their own tokens and add an AFK status indicator to them using easy and configurable shortcuts.
 
