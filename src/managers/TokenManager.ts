@@ -36,7 +36,7 @@ export class TokenManager {
                 const animationDuration = this.#settings.animationDuration;
 
                 if(tokenMirrorDirection === TokenMirror.HORIZONTAL){
-                    const flipOri = -(token.document.getFlag('hex-size-support', 'alternateOrientation'));
+                    const flipOri = -((token.document as any).getFlag('hex-size-support', 'alternateOrientation'));
                     await token.document.setFlag('hex-size-support', 'alternateOrientation', flipOri);
                 }
 
