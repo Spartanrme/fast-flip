@@ -7,7 +7,7 @@
             "name": "MrByte"
         }
     ],
-    "version": "3.2.2",
+    "version": "3.2.3",
     "socket": true,
     "compatibility": {
         "minimum": 10,
@@ -33,10 +33,10 @@
     "scripts": [
         "mod.js"
     ],
-    "url": "https://github.com/Mr-Byte/fast-flip",
-    "download": "https://github.com/Mr-Byte/fast-flip/releases/download/v3.2.2/fast-flip.zip",
-    "manifest": "https://raw.githubusercontent.com/Mr-Byte/fast-flip/V10/module.json",
-    "bugs": "https://github.com/Mr-Byte/fast-flip/issues",
+    "url": "https://github.com/spartanrme/fast-flip",
+    "download": "https://github.com/spartanrme/fast-flip/releases/download/v3.2.3/fast-flip.zip",
+    "manifest": "https://raw.githubusercontent.com/spartanrme/fast-flip/v3.2.3/module.json",
+    "bugs": "https://github.com/spartanrme/fast-flip/issues",
     "allowBugReporter": true,
     "license": "MIT"
 }

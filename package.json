@@ -1,6 +1,6 @@
 {
     "name": "fast-flip",
-    "version": "3.2.2",
+    "version": "3.2.3",
     "description": "Foundry VTT Module",
     "main": "index.js",
     "directories": {
@@ -9,7 +9,7 @@
     "private": true,
     "repository": {
         "type": "git",
-        "url": "https://github.com/Mr-Byte/fast-flip.git"
+        "url": "https://github.com/spartanrme/fast-flip.git"
     },
     "author": "",
     "license": "MIT",
@@ -21,9 +21,9 @@
         "./src/module.ts"
     ],
     "bugs": {
-        "url": "https://github.com/Mr-Byte/fast-flip/issues"
+        "url": "https://github.com/spartanrme/fast-flip/issues"
     },
-    "homepage": "https://github.com/Mr-Byte/fast-flip#readme",
+    "homepage": "https://github.com/spartanrme/fast-flip#readme",
     "dependencies": {
         "@league-of-foundry-developers/foundry-vtt-types": "^9.280.0"
     },
