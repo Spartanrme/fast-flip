@@ -1,3 +1,5 @@
+This is a fork of Fast Flip that is meant to work alongside Hex Size Support (https://foundryvtt.com/packages/hex-size-support/). This fork changes the default behavior of flipping horizontally to also flip the orientation. Without this, the flipped token won't align on the hex grid correction.
+
 # Fast Flip! Token Tools
 
 > [!IMPORTANT]
